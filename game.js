@@ -288,9 +288,212 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 });
 
-// Deuxième jeu - Tri sélectif (version avec objets apparaissant un par un)
+// Deuxième jeu - Tri sélectif (version avec 32 objets et sélection aléatoire de 8)
 document.addEventListener('DOMContentLoaded', function() {
-    // Données du jeu de tri
+    // Bibliothèque complète de 32 objets à trier
+    const wasteLibrary = [
+        // Plastique (8 objets)
+        {
+            id: 1,
+            name: 'Bouteille plastique',
+            type: 'bouteille',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/18/39/plastic-bottle-153991_640.png'
+        },
+        {
+            id: 2,
+            name: 'Sac plastique',
+            type: 'sac',
+            image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/shopping-bags-311319_640.png'
+        },
+        {
+            id: 3,
+            name: 'Emballage chips',
+            type: 'emballage',
+            image: 'https://cdn.pixabay.com/photo/2014/12/21/23/39/crisps-576506_640.png'
+        },
+        {
+            id: 4,
+            name: 'Flacon de shampooing',
+            type: 'bouteille',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/bottle-2028018_640.png'
+        },
+        {
+            id: 5,
+            name: 'Barquette alimentaire',
+            type: 'emballage',
+            image: 'https://cdn.pixabay.com/photo/2017/09/17/23/21/plastic-2760353_640.png'
+        },
+        {
+            id: 6,
+            name: 'Bouchon plastique',
+            type: 'emballage',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/bottle-2028019_640.png'
+        },
+        {
+            id: 7,
+            name: 'Film plastique',
+            type: 'emballage',
+            image: 'https://cdn.pixabay.com/photo/2016/03/27/19/32/food-packaging-1283831_640.jpg'
+        },
+        {
+            id: 8,
+            name: 'Stylo',
+            type: 'emballage',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/18/56/pen-154167_640.png'
+        },
+
+        // Métal (8 objets)
+        {
+            id: 9,
+            name: 'Canette',
+            type: 'canette',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/18/56/soda-can-154158_640.png'
+        },
+        {
+            id: 10,
+            name: 'Boîte de conserve',
+            type: 'conserves',
+            image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/canned-food-310996_640.png'
+        },
+        {
+            id: 11,
+            name: 'Papier aluminium',
+            type: 'papier aluminium',
+            image: 'https://cdn.pixabay.com/photo/2016/11/22/19/15/aluminum-1850115_640.jpg'
+        },
+        {
+            id: 12,
+            name: 'Capsule de bouteille',
+            type: 'canette',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/bottle-2028023_640.png'
+        },
+        {
+            id: 13,
+            name: 'Couvercle en métal',
+            type: 'conserves',
+            image: 'https://cdn.pixabay.com/photo/2016/03/31/19/58/can-1296039_640.png'
+        },
+        {
+            id: 14,
+            name: 'Clé',
+            type: 'papier aluminium',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/19/01/key-154342_640.png'
+        },
+        {
+            id: 15,
+            name: 'Pile',
+            type: 'conserves',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/18/58/battery-154310_640.png'
+        },
+        {
+            id: 16,
+            name: 'Récipient métallique',
+            type: 'conserves',
+            image: 'https://cdn.pixabay.com/photo/2016/03/27/19/43/can-1283827_640.jpg'
+        },
+
+        // Verre (8 objets)
+        {
+            id: 17,
+            name: 'Bouteille en verre',
+            type: 'bouteille verre',
+            image: 'https://cdn.pixabay.com/photo/2014/12/22/00/04/bottle-576717_640.png'
+        },
+        {
+            id: 18,
+            name: 'Pot en verre',
+            type: 'pot',
+            image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/jar-310815_640.png'
+        },
+        {
+            id: 19,
+            name: 'Bocal',
+            type: 'bocal',
+            image: 'https://cdn.pixabay.com/photo/2017/01/10/03/09/bottle-1967900_640.png'
+        },
+        {
+            id: 20,
+            name: 'Flacon de parfum',
+            type: 'bouteille verre',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/bottle-2028030_640.png'
+        },
+        {
+            id: 21,
+            name: 'Verre à boire',
+            type: 'bouteille verre',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/18/56/glass-154321_640.png'
+        },
+        {
+            id: 22,
+            name: 'Bouteille de vin',
+            type: 'bouteille verre',
+            image: 'https://cdn.pixabay.com/photo/2014/12/11/02/55/bottle-563797_640.png'
+        },
+        {
+            id: 23,
+            name: 'Pot de confiture',
+            type: 'pot',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/jam-2028032_640.png'
+        },
+        {
+            id: 24,
+            name: 'Vase',
+            type: 'bocal',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/vase-2028031_640.png'
+        },
+
+        // Papier/Carton (8 objets)
+        {
+            id: 25,
+            name: 'Journal',
+            type: 'journal',
+            image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/newspaper-310962_640.png'
+        },
+        {
+            id: 26,
+            name: 'Emballage carton',
+            type: 'carton',
+            image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/box-310976_640.png'
+        },
+        {
+            id: 27,
+            name: 'Magazine',
+            type: 'magazine',
+            image: 'https://cdn.pixabay.com/photo/2016/11/29/08/41/magazine-1868985_640.jpg'
+        },
+        {
+            id: 28,
+            name: 'Boîte à œufs',
+            type: 'carton',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/egg-box-2028028_640.png'
+        },
+        {
+            id: 29,
+            name: 'Cahier',
+            type: 'journal',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/notebook-2028033_640.png'
+        },
+        {
+            id: 30,
+            name: 'Enveloppe',
+            type: 'magazine',
+            image: 'https://cdn.pixabay.com/photo/2013/07/12/19/01/envelope-154710_640.png'
+        },
+        {
+            id: 31,
+            name: 'Brique de lait',
+            type: 'carton',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/milk-2028027_640.png'
+        },
+        {
+            id: 32,
+            name: 'Sac en papier',
+            type: 'carton',
+            image: 'https://cdn.pixabay.com/photo/2017/01/31/23/42/paper-bag-2028029_640.png'
+        }
+    ];
+
+    // Données des poubelles
     const sortingGameData = {
         bins: [
             {
@@ -322,63 +525,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 image: "image/4.png"
             }
         ],
-        wasteItems: [
-            {
-                id: 1,
-                name: 'Bouteille plastique',
-                type: 'bouteille',
-                image: 'https://cdn.pixabay.com/photo/2013/07/12/18/39/plastic-bottle-153991_640.png'
-            },
-            {
-                id: 2,
-                name: 'Canette',
-                type: 'canette',
-                image: 'https://cdn.pixabay.com/photo/2013/07/12/18/56/soda-can-154158_640.png'
-            },
-            {
-                id: 3,
-                name: 'Bouteille en verre',
-                type: 'bouteille verre',
-                image: 'https://cdn.pixabay.com/photo/2014/12/22/00/04/bottle-576717_640.png'
-            },
-            {
-                id: 4,
-                name: 'Journal',
-                type: 'journal',
-                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/newspaper-310962_640.png'
-            },
-            {
-                id: 5,
-                name: 'Sac plastique',
-                type: 'sac',
-                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/shopping-bags-311319_640.png'
-            },
-            {
-                id: 6,
-                name: 'Boîte de conserve',
-                type: 'conserves',
-                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/canned-food-310996_640.png'
-            },
-            {
-                id: 7,
-                name: 'Pot en verre',
-                type: 'pot',
-                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/jar-310815_640.png'
-            },
-            {
-                id: 8,
-                name: 'Emballage carton',
-                type: 'carton',
-                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/box-310976_640.png'
-            }
-        ]
+        // wasteItems sera rempli aléatoirement au début du jeu
+        wasteItems: []
     };
 
-    // Variables du jeu modifiées
+    // Variables du jeu
     let matchedItems = 0;
     let currentItemIndex = 0;
     let currentDraggedWaste = null;
-    let totalItems = sortingGameData.wasteItems.length;
+    let totalItems = 8; // On en sélectionne 8 parmi la bibliothèque
 
     // Éléments DOM
     const binsContainer = document.getElementById('binsContainer');
@@ -388,8 +543,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortingProgressText = document.getElementById('sortingProgressText');
     const resetSortingBtn = document.getElementById('resetSortingBtn');
 
+    // Sélectionner 8 objets aléatoires parmi la bibliothèque
+    function selectRandomWasteItems() {
+        // Mélanger la bibliothèque et prendre les 8 premiers
+        const shuffled = [...wasteLibrary].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, 8);
+    }
+
     // Initialiser le jeu de tri
     function initSortingGame() {
+        // Sélectionner 8 objets aléatoires
+        sortingGameData.wasteItems = selectRandomWasteItems();
+        
         matchedItems = 0;
         currentItemIndex = 0;
         updateSortingProgress();
