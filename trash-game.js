@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
         gameDuration: 60,
         lives: 3,
         binTypes: [
-            { name: 'Jaune', color: 'yellow', items: ['bottle', 'can', 'carton', 'plastic'] },
-            { name: 'Verte', color: 'green', items: ['glass', 'bottle-green'] },
-            { name: 'Bleue', color: 'blue', items: ['paper', 'newspaper'] },
-            { name: 'Noire', color: 'black', items: ['banana', 'hamburger'] }
+            { name: 'Jaune', color: 'yellow', image: 'image/2.png', items: ['bottle', 'can', 'carton', 'plastic'] },
+            { name: 'Verte', color: 'green', image: 'image/1.png', items: ['glass', 'bottle-green'] },
+            { name: 'Bleue', color: 'blue', image: 'image/4.png', items: ['paper', 'newspaper'] },
+            { name: 'Noire', color: 'black', image: 'image/3.png', items: ['banana', 'hamburger'] }
         ],
         trashItems: [
             { type: 'bottle', name: 'Bouteille plastique', image: 'image/bouteille_plastique.png', bins: ['yellow'] },
@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         binLabel.className = 'bin-label ' + randomBin.color;
         currentBinName.textContent = randomBin.name.toLowerCase();
         currentBinName.className = randomBin.color;
+        config.binTypes.image = randomBin.image;
     }
 
     function startGame() {
