@@ -347,3 +347,219 @@ document.addEventListener('DOMContentLoaded', function() {
     // Démarrer le jeu
     initGame();
 });
+
+    // Deuxième jeu - Tri sélectif
+document.addEventListener('DOMContentLoaded', function() {
+    // Données du jeu de tri
+    const sortingGameData = {
+        bins: [
+            {
+                id: 'plastic',
+                name: 'Plastique',
+                color: '#2196f3',
+                accepts: ['bouteille', 'sac', 'emballage'],
+                image: "image/2.png"
+            },
+            {
+                id: 'metal',
+                name: 'Métal',
+                color: '#ffc107',
+                accepts: ['canette', 'conserves', 'papier aluminium'],
+                image: "image/3.png"
+            },
+            {
+                id: 'glass',
+                name: 'Verre',
+                color: '#4caf50',
+                accepts: ['bouteille verre', 'pot', 'bocal'],
+                image: "image/1.png"
+            },
+            {
+                id: 'paper',
+                name: 'Papier/Carton',
+                color: '#9c27b0',
+                accepts: ['journal', 'carton', 'magazine'],
+                image: "image/4.png"
+            }
+        ],
+        wasteItems: [
+            {
+                id: 1,
+                name: 'Bouteille plastique',
+                type: 'bouteille',
+                image: 'https://cdn.pixabay.com/photo/2013/07/12/18/39/plastic-bottle-153991_640.png'
+            },
+            {
+                id: 2,
+                name: 'Canette',
+                type: 'canette',
+                image: 'https://cdn.pixabay.com/photo/2013/07/12/18/56/soda-can-154158_640.png'
+            },
+            {
+                id: 3,
+                name: 'Bouteille en verre',
+                type: 'bouteille verre',
+                image: 'https://cdn.pixabay.com/photo/2014/12/22/00/04/bottle-576717_640.png'
+            },
+            {
+                id: 4,
+                name: 'Journal',
+                type: 'journal',
+                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/newspaper-310962_640.png'
+            },
+            {
+                id: 5,
+                name: 'Sac plastique',
+                type: 'sac',
+                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/shopping-bags-311319_640.png'
+            },
+            {
+                id: 6,
+                name: 'Boîte de conserve',
+                type: 'conserves',
+                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/canned-food-310996_640.png'
+            },
+            {
+                id: 7,
+                name: 'Pot en verre',
+                type: 'pot',
+                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/jar-310815_640.png'
+            },
+            {
+                id: 8,
+                name: 'Emballage carton',
+                type: 'carton',
+                image: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/box-310976_640.png'
+            }
+        ]
+    };
+
+    // Variables du jeu
+    let matchedItems = 0;
+    let totalItems = sortingGameData.wasteItems.length;
+    let currentDraggedWaste = null;
+
+    // Éléments DOM
+    const binsContainer = document.getElementById('binsContainer');
+    const wasteItemsContainer = document.getElementById('wasteItemsContainer');
+    const sortingFeedback = document.getElementById('sortingFeedback');
+    const sortingProgressBar = document.getElementById('sortingProgressBar');
+    const sortingProgressText = document.getElementById('sortingProgressText');
+    const resetSortingBtn = document.getElementById('resetSortingBtn');
+
+    // Initialiser le jeu de tri
+    function initSortingGame() {
+        matchedItems = 0;
+        updateSortingProgress();
+        sortingFeedback.className = 'feedback';
+        sortingFeedback.textContent = 'Faites glisser chaque déchet vers la bonne poubelle de tri !';
+        
+        binsContainer.innerHTML = '';
+        wasteItemsContainer.innerHTML = '';
+
+        // Créer les poubelles
+        sortingGameData.bins.forEach(bin => {
+            const binElement = document.createElement('div');
+            binElement.className = `bin ${bin.id}`;
+            binElement.dataset.id = bin.id;
+            binElement.dataset.accepts = bin.accepts.join(',');
+            
+            binElement.innerHTML = `
+                <img src="${bin.image}" alt="${bin.name}">
+                <p>${bin.name}</p>
+            `;
+            
+            binElement.addEventListener('dragover', handleBinDragOver);
+            binElement.addEventListener('dragenter', handleBinDragEnter);
+            binElement.addEventListener('dragleave', handleBinDragLeave);
+            binElement.addEventListener('drop', handleBinDrop);
+            
+            binsContainer.appendChild(binElement);
+        });
+
+        // Créer les déchets (mélangés)
+        const shuffledWaste = [...sortingGameData.wasteItems].sort(() => Math.random() - 0.5);
+        
+        shuffledWaste.forEach(item => {
+            const wasteElement = document.createElement('div');
+            wasteElement.className = 'waste-item';
+            wasteElement.draggable = true;
+            wasteElement.dataset.id = item.id;
+            wasteElement.dataset.type = item.type;
+            
+            wasteElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <p>${item.name}</p>
+            `;
+            
+            wasteElement.addEventListener('dragstart', handleWasteDragStart);
+            wasteItemsContainer.appendChild(wasteElement);
+        });
+    }
+
+    // Gestionnaires d'événements pour le jeu de tri
+    function handleWasteDragStart(e) {
+        currentDraggedWaste = this;
+        e.dataTransfer.setData('text/plain', this.dataset.id);
+        setTimeout(() => {
+            this.classList.add('dragging');
+        }, 0);
+    }
+
+    function handleBinDragOver(e) {
+        e.preventDefault();
+    }
+
+    function handleBinDragEnter(e) {
+        e.preventDefault();
+        this.classList.add('highlight');
+    }
+
+    function handleBinDragLeave() {
+        this.classList.remove('highlight');
+    }
+
+    function handleBinDrop(e) {
+        e.preventDefault();
+        this.classList.remove('highlight');
+        
+        const draggedId = e.dataTransfer.getData('text/plain');
+        const draggedElement = document.querySelector(`.waste-item[data-id="${draggedId}"]`);
+        
+        if (!draggedElement || draggedElement.classList.contains('matched')) return;
+        
+        const wasteType = draggedElement.dataset.type;
+        const binAccepts = this.dataset.accepts.split(',');
+        
+        if (binAccepts.includes(wasteType)) {
+            this.innerHTML += `<div class="dropped-item">${draggedElement.querySelector('p').textContent}</div>`;
+            draggedElement.style.visibility = 'hidden';
+            draggedElement.classList.add('matched');
+            
+            matchedItems++;
+            updateSortingProgress();
+            
+            sortingFeedback.className = 'feedback success';
+            sortingFeedback.textContent = 'Correct ! Ce déchet va bien dans cette poubelle.';
+            
+            if (matchedItems === totalItems) {
+                sortingFeedback.innerHTML += '<br><strong>Félicitations ! Vous avez trié tous vos déchets correctement !</strong>';
+            }
+        } else {
+            sortingFeedback.className = 'feedback error';
+            sortingFeedback.textContent = 'Oops ! Ce déchet ne va pas dans cette poubelle. Essayez encore !';
+        }
+        
+        currentDraggedWaste.classList.remove('dragging');
+        currentDraggedWaste = null;
+    }
+
+    function updateSortingProgress() {
+        const progressPercent = (matchedItems / totalItems) * 100;
+        sortingProgressBar.style.width = `${progressPercent}%`;
+        sortingProgressText.textContent = `${matchedItems}/${totalItems}`;
+    }
+
+    resetSortingBtn.addEventListener('click', initSortingGame);
+    initSortingGame();
+});
