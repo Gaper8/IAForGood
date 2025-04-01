@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 1,
             name: "Ordinateur portable",
-            image: "https://cdn.pixabay.com/photo/2014/09/24/14/29/macbook-459196_640.png",
+            image: "image/jeu1/laptop.webp",
             waterCost: 1000,
             unit: "litres",
             explanation: "La fabrication d'un ordinateur portable nécessite environ 1 000 litres d'eau, surtout pour la production des composants électroniques."
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 2,
             name: "Jeans",
-            image: "https://cdn.pixabay.com/photo/2014/08/11/21/39/jeans-416062_640.png",
+            image: "image/jeu1/jeans.webp",
             waterCost: 10000,
             unit: "litres",
             explanation: "La production d'un jean nécessite environ 10 000 litres d'eau, principalement pour la culture du coton."
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 3,
             name: "T-shirt en coton",
-            image: "https://cdn.pixabay.com/photo/2013/07/13/11/44/t-shirt-158091_640.png",
+            image: "image/jeu1/tshirt.webp",
             waterCost: 2500,
             unit: "litres",
             explanation: "Un simple t-shirt en coton nécessite 2 500 litres d'eau pour sa production."
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 4,
             name: "1 kg de viande de bœuf",
-            image: "https://cdn.pixabay.com/photo/2013/07/13/10/51/cow-157578_640.png",
+            image: "image/jeu1/meatbeef.webp",
             waterCost: 15000,
             unit: "litres",
             explanation: "1 kg de viande de bœuf représente environ 15 000 litres d'eau, principalement pour l'alimentation du bétail."
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 5,
             name: "Tasse de café",
-            image: "https://cdn.pixabay.com/photo/2014/04/03/10/32/coffee-310454_640.png",
+            image: "image/jeu1/coffecup.webp",
             waterCost: 140,
             unit: "litres",
             explanation: "Une tasse de café (125ml) représente environ 140 litres d'eau, surtout pour la culture des grains."
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 6,
             name: "Feuille de papier A4",
-            image: "https://cdn.pixabay.com/photo/2013/07/12/14/53/paper-148850_640.png",
+            image: "image/jeu1/paper.webp",
             waterCost: 10,
             unit: "litres",
             explanation: "Une feuille de papier A4 nécessite environ 10 litres d'eau, depuis la culture du bois jusqu'à sa fabrication."
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 7,
             name: "Smartphone",
-            image: "https://cdn.pixabay.com/photo/2014/08/05/10/30/iphone-410324_640.png",
+            image: "image/jeu1/smartphone.webp",
             waterCost: 1300,
             unit: "litres",
             explanation: "La production d'un smartphone nécessite environ 1 300 litres d'eau, notamment pour l'extraction des minerais."
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 8,
             name: "1 kg de chocolat",
-            image: "https://cdn.pixabay.com/photo/2013/07/13/01/22/chocolate-155595_640.png",
+            image: "image/jeu1/chocolate.webp",
             waterCost: 17000,
             unit: "litres",
             explanation: "1 kg de chocolat requiert environ 17 000 litres d'eau, principalement pour la culture des fèves de cacao."
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 9,
             name: "1 kg de riz",
-            image: "https://cdn.pixabay.com/photo/2014/12/11/02/55/cereals-563796_640.png",
+            image: "image/jeu1/rice.webp",
             waterCost: 2500,
             unit: "litres",
             explanation: "1 kg de riz nécessite environ 2 500 litres d'eau pour sa culture."
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 10,
             name: "1 litre de lait",
-            image: "https://cdn.pixabay.com/photo/2013/07/13/11/34/milk-158455_640.png",
+            image: "image/jeu1/milk.webp",
             waterCost: 1000,
             unit: "litres",
             explanation: "1 litre de lait représente environ 1 000 litres d'eau, surtout pour l'alimentation des vaches."
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 11,
             name: "1 kg de pommes",
-            image: "https://cdn.pixabay.com/photo/2016/01/05/13/58/apple-1122537_640.png",
+            image: "image/jeu1/apple.webp",
             waterCost: 700,
             unit: "litres",
             explanation: "1 kg de pommes nécessite environ 700 litres d'eau pour sa production."
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 12,
             name: "1 kg de pain",
-            image: "https://cdn.pixabay.com/photo/2014/07/22/09/59/bread-399286_640.png",
+            image: "image/jeu1/bread.webp",
             waterCost: 1600,
             unit: "litres",
             explanation: "1 kg de pain représente environ 1 600 litres d'eau, surtout pour la culture du blé."
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 13,
             name: "1 œuf",
-            image: "https://cdn.pixabay.com/photo/2014/04/03/00/41/egg-310103_640.png",
+            image: "image/jeu1/egg.webp",
             waterCost: 200,
             unit: "litres",
             explanation: "Un œuf de poule représente environ 200 litres d'eau, principalement pour l'alimentation de la poule."
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 14,
             name: "1 kg de tomates",
-            image: "https://cdn.pixabay.com/photo/2013/07/13/11/34/tomato-158150_640.png",
+            image: "image/jeu1/tomato.webp",
             waterCost: 180,
             unit: "litres",
             explanation: "1 kg de tomates nécessite environ 180 litres d'eau pour sa culture."
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 15,
             name: "1 kg de fromage",
-            image: "https://cdn.pixabay.com/photo/2013/07/13/11/36/cheese-158523_640.png",
+            image: "image/jeu1/fromage.webp",
             waterCost: 5000,
             unit: "litres",
             explanation: "1 kg de fromage représente environ 5 000 litres d'eau, surtout pour la production du lait nécessaire."
