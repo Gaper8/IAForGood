@@ -12,7 +12,7 @@ Tri sélectif : Apprenez à trier correctement les déchets selon leur matière.
 
 Space-invaders : Déplacer une poubelle en attrapant les éléments correspondant à son type de recyclage. Les poubelles changent avec le temps. Si vous attrapez les mauvais objet votre vie baisse.
 
-Trieguesseur : Trouvez la bon pays associé à l'image.
+Eco-guesseur : Trouvez la bon pays associé à l'image.
 
 ✨ Fonctionnalités interactives :
 
