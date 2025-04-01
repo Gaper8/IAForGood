@@ -127,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function getRandomGameData() {
         // On s'assure d'avoir toujours l'ordinateur
         const computer = allGameData.find(item => item.name.includes("Ordinateur"));
-        
+
         // On prend 4 autres objets aléatoires parmi les 14 restants
         const otherItems = allGameData
             .filter(item => item.id !== computer.id)
             .sort(() => 0.5 - Math.random())
             .slice(0, 4);
-        
+
         return [computer, ...otherItems].sort(() => 0.5 - Math.random());
     }
 
@@ -149,6 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     const resetBtn = document.getElementById('resetBtn');
+    const gameContainer = document.querySelector('.game-container');
+
+    // Assurez-vous que le conteneur du jeu a une position relative
+    gameContainer.style.position = 'relative';
 
     // Initialiser le jeu
     function initGame() {
@@ -157,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateProgress();
         feedbackElement.className = 'feedback';
         feedbackElement.textContent = 'Faites glisser les objets vers leur empreinte hydrique correspondante !';
-        
+
         objectsContainer.innerHTML = '';
         targetsContainer.innerHTML = '';
 
@@ -168,32 +172,37 @@ document.addEventListener('DOMContentLoaded', function() {
             objectElement.draggable = true;
             objectElement.dataset.id = item.id;
             objectElement.dataset.cost = item.waterCost;
-            
+
             objectElement.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
                 <p>${item.name}</p>
             `;
-            
+
             objectElement.addEventListener('dragstart', handleDragStart);
             objectsContainer.appendChild(objectElement);
         });
 
-        // Créer les cibles
+        // Créer les cibles avec une structure améliorée
         const waterCosts = gameData.map(item => item.waterCost).sort(() => Math.random() - 0.5);
-        
+
         waterCosts.forEach(cost => {
             const targetElement = document.createElement('div');
             targetElement.className = 'target-item';
             targetElement.dataset.cost = cost;
-            
-            targetElement.textContent = `${cost.toLocaleString()} litres`;
-            
+
+            // Nouvelle structure pour les cibles
+            targetElement.innerHTML = `
+                <div class="target-item-content">
+                    <span>${cost.toLocaleString()} litres</span>
+                </div>
+            `;
+
             targetElement.addEventListener('dragover', handleDragOver);
             targetElement.addEventListener('dragenter', handleDragEnter);
             targetElement.addEventListener('dragleave', handleDragLeave);
             targetElement.addEventListener('drop', handleDrop);
             targetElement.addEventListener('click', handleTargetClick);
-            
+
             targetsContainer.appendChild(targetElement);
         });
     }
@@ -223,54 +232,105 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleDrop(e) {
         e.preventDefault();
         this.classList.remove('highlight');
-        
+
         const draggedId = e.dataTransfer.getData('text/plain');
         const draggedElement = document.querySelector(`.object-item[data-id="${draggedId}"]`);
-        
+
         if (!draggedElement) return;
-        
+
         const draggedCost = parseInt(draggedElement.dataset.cost);
         const targetCost = parseInt(this.dataset.cost);
-        
+
         if (draggedCost === targetCost) {
-            // Bonne réponse
-            this.textContent = `${draggedElement.querySelector('p').textContent} - ${targetCost.toLocaleString()} litres`;
+            // Bonne réponse - nouvelle structure pour l'affichage après matching
+            const itemName = draggedElement.querySelector('p').textContent;
+            this.innerHTML = `
+                <div class="target-item-content">
+                    <span>${itemName}</span>
+                    <span>${targetCost.toLocaleString()} litres</span>
+                </div>
+            `;
+
             this.style.backgroundColor = '#e8f5e9';
             this.style.border = '2px solid #81c784';
             this.classList.add('matched');
-            
+
             draggedElement.style.visibility = 'hidden';
-            
+
             matchedPairs++;
             updateProgress();
-            
-            // Afficher l'explication
+
+            // Afficher l'explication dans un popup
             const matchedItem = gameData.find(item => item.id.toString() === draggedId);
-            feedbackElement.className = 'feedback success';
-            feedbackElement.innerHTML = `Correct ! ${matchedItem.explanation}`;
-            
+            showSuccessPopup(matchedItem.explanation);
+
             if (matchedPairs === totalPairs) {
-                feedbackElement.innerHTML += '<br><strong>Félicitations ! Vous avez terminé le jeu !</strong>';
+                feedbackElement.innerHTML = '<br><strong>Félicitations ! Vous avez terminé le jeu !</strong>';
             }
         } else {
-            // Mauvaise réponse
-            feedbackElement.className = 'feedback error';
-            feedbackElement.textContent = 'Oops ! Ce n\'est pas la bonne association. Essayez encore !';
+            // Mauvaise réponse - afficher le popup
+            showErrorPopup();
         }
-        
+
         currentDraggedItem.classList.remove('dragging');
         currentDraggedItem = null;
     }
 
     function handleTargetClick() {
         if (this.classList.contains('matched')) {
-            const itemName = this.textContent.split(' - ')[0];
-            const matchedItem = gameData.find(item => item.name === itemName);
-            
-            if (matchedItem) {
-                feedbackElement.className = 'feedback success';
-                feedbackElement.innerHTML = `${matchedItem.explanation}`;
+            const content = this.querySelector('.target-item-content');
+            if (content) {
+                const itemName = content.querySelector('span:first-child').textContent;
+                const matchedItem = gameData.find(item => item.name === itemName);
+
+                if (matchedItem) {
+                    showSuccessPopup(matchedItem.explanation);
+                }
             }
+        }
+    }
+
+    // Nouvelle fonction pour afficher le popup d'erreur
+    function showErrorPopup() {
+        showPopup('Oops ! Ce n\'est pas la bonne association.', 'error-popup');
+    }
+
+    // Nouvelle fonction pour afficher le popup de succès
+    function showSuccessPopup(message) {
+        showPopup(`Correct ! ${message}`, 'success-popup');
+    }
+
+    // Fonction générique pour afficher un popup
+    function showPopup(message, className) {
+        // Supprimer tout popup existant
+        const existingPopup = document.querySelector('.error-popup, .success-popup');
+        if (existingPopup) existingPopup.remove();
+
+        // Créer le popup
+        const popup = document.createElement('div');
+        popup.className = className;
+        popup.innerHTML = `
+            <p>${message}</p>
+            <button>OK</button>
+        `;
+
+        gameContainer.appendChild(popup);
+
+        // Fermer le popup au clic
+        const button = popup.querySelector('button');
+        button.addEventListener('click', () => {
+            popup.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => popup.remove(), 300);
+        });
+
+        // Fermer automatiquement après 3 secondes pour les erreurs
+        if (className === 'error-popup') {
+            setTimeout(() => {
+                if (popup.parentNode) {
+                    popup.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => popup.remove(), 300);
+                }
+            }, 2000);
         }
     }
 
