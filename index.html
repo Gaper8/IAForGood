@@ -83,95 +83,130 @@
             </div>
         </section>
 
-        <!-- Section du jeu intégrée -->
-        <section class="game-section" id="jeu">
-            <h2 class="section-title"><i class="fas fa-tint"></i> Découvrez l'eau cachée dans vos objets du quotidien</h2>
-            <p class="game-subtitle">Un jeu interactif pour comprendre notre empreinte hydrique</p>
-            
-            <div class="game-container">
-                <div class="instructions">
-                    <p>Faites glisser chaque objet vers son coût en eau estimé. Apprenez ainsi l'impact hydrique de votre consommation !</p>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progressBar"></div>
-                        <span id="progressText">0/5</span>
-                    </div>
-                </div>
+<!-- Section du jeu 1 : Découvrez l'eau cachée dans vos objets du quotidien -->
+<section class="game-section" id="jeu-eau">
+    <h2 class="section-title"><i class="fas fa-tint"></i> Découvrez l'eau cachée dans vos objets du quotidien</h2>
+    <p class="game-subtitle">Un jeu interactif pour comprendre notre empreinte hydrique</p>
 
-                <div class="game-area">
-                    <div class="objects-container" id="objectsContainer"></div>
-                    <div class="targets-container" id="targetsContainer"></div>
-                </div>
+    <div class="game-container">
+        <div class="instructions">
+            <p>Faites glisser chaque objet vers son coût en eau estimé. Apprenez ainsi l'impact hydrique de votre consommation !</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <span id="progressText">0/5</span>
+            </div>
+        </div>
 
-                <div class="feedback" id="feedback">
-                    <p>Commencez à faire glisser les objets vers leur empreinte hydrique correspondante !</p>
-                </div>
+        <div class="game-area">
+            <div class="objects-container" id="objectsContainer"></div>
+            <div class="targets-container" id="targetsContainer"></div>
+        </div>
 
-                <button class="reset-btn shine" id="resetBtn"><i class="fas fa-redo"></i> Recommencer</button>
+        <div class="feedback" id="feedback">
+            <p>Commencez à faire glisser les objets vers leur empreinte hydrique correspondante !</p>
+        </div>
+
+        <button class="reset-btn shine" id="resetBtn"><i class="fas fa-redo"></i> Recommencer</button>
+    </div>
+</section>
+
+<!-- Section du jeu 2 : Triez vos déchets correctement -->
+<section class="game-section" id="jeu-tri">
+    <h2 class="section-title"><i class="fas fa-recycle"></i> Triez vos déchets correctement</h2>
+    <p class="game-subtitle">Apprenez à bien trier vos déchets pour mieux recycler</p>
+
+    <div class="game-container">
+        <div class="sorting-game">
+            <div class="bins-container" id="binsContainer"></div>
+            <div class="current-waste-container" id="wasteItemsContainer"></div>
+
+            <div class="feedback" id="sortingFeedback">
+                <p>Prêt à commencer le tri !</p>
             </div>
 
-            <div class="game-container">
-                <h2>Triez vos déchets correctement</h2>
-                <p class="game-subtitle">Apprenez à bien trier vos déchets pour mieux recycler</p>
-                
-                <div class="sorting-game">
-                    <div class="bins-container" id="binsContainer"></div>
-                    <div class="current-waste-container" id="wasteItemsContainer"></div>
-                    
-                    <div class="feedback" id="sortingFeedback">
-                        <p>Prêt à commencer le tri !</p>
-                    </div>
-                    
-                    <div class="progress-container">
-                        <div class="progress-bar" id="sortingProgressBar"></div>
-                        <span id="sortingProgressText">0/8</span>
-                    </div>
-                    
-                    <button class="reset-btn" id="resetSortingBtn">Recommencer</button>
+            <div class="progress-container">
+                <div class="progress-bar" id="sortingProgressBar"></div>
+                <span id="sortingProgressText">0/8</span>
+            </div>
+
+            <button class="reset-btn" id="resetSortingBtn">Recommencer</button>
+        </div>
+    </div>
+</section>
+
+<!-- Section du jeu 3 : Défi du Tri Sélectif -->
+<section class="trash-game-section" id="trash-game">
+    <h2 class="section-title"><i class="fas fa-recycle"></i> Défi du Tri Sélectif</h2>
+    <p class="game-subtitle">Testez vos connaissances sur le tri des déchets en temps limité !</p>
+
+    <div class="trash-game-container">
+        <div class="game-controls">
+            <div class="info-panel">
+                <div class="score-box">
+                    <span>Score:</span>
+                    <span id="trashScore">0</span>
+                </div>
+                <div class="time-box">
+                    <span>Temps:</span>
+                    <span id="trashTime">60</span>s
+                </div>
+                <div class="lives-box">
+                    <span>Vies:</span>
+                    <span id="trashLives">3</span>
                 </div>
             </div>
-        </section>
-        <!-- Nouvelle section pour le jeu de tri -->
-        <section class="trash-game-section" id="trash-game">
-            <h2 class="section-title"><i class="fas fa-recycle"></i> Défi du Tri Sélectif</h2>
-            <p class="game-subtitle">Testez vos connaissances sur le tri des déchets en temps limité !</p>
-            
-            <div class="trash-game-container">
-                <div class="game-controls">
-                    <div class="info-panel">
-                        <div class="score-box">
-                            <span>Score:</span>
-                            <span id="trashScore">0</span>
-                        </div>
-                        <div class="time-box">
-                            <span>Temps:</span>
-                            <span id="trashTime">60</span>s
-                        </div>
-                        <div class="lives-box">
-                            <span>Vies:</span>
-                            <span id="trashLives">3</span>
-                        </div>
-                    </div>
-                    <button id="trashStartBtn" class="control-btn"><i class="fas fa-play"></i> Commencer</button>
-                    <button id="trashResetBtn" class="control-btn"><i class="fas fa-redo"></i> Recommencer</button>
-                </div>
+            <button id="trashStartBtn" class="control-btn"><i class="fas fa-play"></i> Commencer</button>
+            <button id="trashResetBtn" class="control-btn"><i class="fas fa-redo"></i> Recommencer</button>
+        </div>
 
-                <div class="trash-game-area" id="trashGameArea">
-                    <div class="bin2" id="trashBin">
-                        <img src="https://cdn.pixabay.com/photo/2013/07/12/18/39/recycling-bin-154126_640.png" alt="Poubelle">
-                        <div class="bin-label" id="trashBinLabel">Jaune</div>
-                    </div>
-                </div>
-
-                <div class="trash-instructions">
-                    <h3>Comment jouer ?</h3>
-                    <ul>
-                        <li>Déplacez la poubelle avec les touches ◄ et ► ou en glissant votre doigt</li>
-                        <li>Attrapez uniquement les déchets qui vont dans la poubelle <span id="currentTrashBinName">jaune</span></li>
-                        <li>Vous avez 60 secondes pour marquer un maximum de points</li>
-                    </ul>
-                </div>
+        <div class="trash-game-area" id="trashGameArea">
+            <div class="bin2" id="trashBin">
+                <img src="https://cdn.pixabay.com/photo/2013/07/12/18/39/recycling-bin-154126_640.png" alt="Poubelle">
+                <div class="bin-label" id="trashBinLabel">Jaune</div>
             </div>
-        </section>
+        </div>
+
+        <div class="trash-instructions">
+            <h3>Comment jouer ?</h3>
+            <ul>
+                <li>Déplacez la poubelle avec les touches ◄ et ► ou en glissant votre doigt</li>
+                <li>Attrapez uniquement les déchets qui vont dans la poubelle <span id="currentTrashBinName">jaune</span></li>
+                <li>Vous avez 60 secondes pour marquer un maximum de points</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Section du jeu 4 : Éco-Guesser -->
+<section class="game-section" id="eco-guesser">
+    <h2 class="section-title"><i class="fas fa-globe-americas"></i> Éco-Guesser - Découvrez les lieux les plus pollués</h2>
+    <p class="game-subtitle">Un jeu interactif pour tester vos connaissances sur la pollution mondiale</p>
+
+    <div class="eco-guesser-container">
+        <div class="score">Score: <span id="score">0</span></div>
+
+        <div class="game-area">
+            <h3>Dans quel pays se trouve ce lieu pollué ?</h3>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+
+            <div class="controls">
+                <input type="text" class="guess-input" id="guess" placeholder="Entrez le nom du pays">
+                <button id="submit-guess" class="eco-guesser-btn">Soumettre</button>
+                <button id="next-location" class="eco-guesser-btn" disabled>Lieu suivant</button>
+            </div>
+
+            <div class="result" id="result"></div>
+
+            <div class="eco-info" id="eco-info">
+                <h4>Information Environnementale</h4>
+                <p id="eco-text">Devinez le pays pour découvrir les enjeux écologiques de ce lieu.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
     </main>
     
     <!-- Footer -->
@@ -235,6 +270,7 @@
     </footer>
 
     <script src="game.js"></script>
+    <script src="geo.js"></script>
     <script src="animations.js"></script>
     <script src="trash-game.js"></script>
 </body>

@@ -1301,3 +1301,341 @@ body {
     50% { transform: translateY(0); }
     75% { transform: translateY(-5px); }
 }
+
+/* Styles pour le jeu Éco-Guesser */
+.eco-guesser-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.guess-input {
+    flex-grow: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.guess-input:focus {
+    border-color: var(--primary-color);
+}
+
+.eco-guesser-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 150px;
+}
+
+.eco-guesser-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.eco-guesser-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.result {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: none;
+    font-weight: 600;
+}
+
+.result.correct {
+    background-color: var(--light-green);
+    color: var(--primary-dark);
+    border-left: 5px solid var(--accent-color);
+}
+
+.result.incorrect {
+    background-color: #ffebee;
+    color: #c62828;
+    border-left: 5px solid #ef5350;
+}
+
+.eco-info {
+    background-color: #e9f7ef;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.eco-info h4 {
+    margin-top: 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+}
+
+.score {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.score span {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 300px;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    .eco-guesser-btn, .guess-input {
+        width: 100%;
+    }
+}
+
+/* Styles pour le jeu "Défi du Tri Sélectif" */
+.trash-game-section {
+    background-color: var(--light-green);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    margin: 4rem 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.trash-game-container {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.trash-game-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.trash-info-panel {
+    display: flex;
+    gap: 20px;
+    background: var(--light-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.trash-score-box, .trash-time-box, .trash-lives-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.trash-game-area {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bin2 {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 100px;
+    transition: left 0.2s ease-out;
+    z-index: 10;
+}
+
+.bin2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.bin-label {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+}
+
+.trash-item {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.trash-item:hover {
+    transform: scale(1.1);
+}
+
+.trash-instructions {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.trash-instructions h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.trash-instructions ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 150px;
+    margin: 0.8rem;
+}
+
+.control-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn i {
+    font-size: 1rem;
+}
+
+/* Effets visuels */
+.correct-trash {
+    animation: correct 0.5s, fadeOut 0.5s forwards;
+}
+
+.wrong-trash {
+    animation: wrong 0.5s, shake 0.5s;
+}
+
+@keyframes correct {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wrong {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-10px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(-5px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .trash-game-area {
+        height: 300px;
+    }
+
+    .bin2 {
+        width: 60px;
+        height: 80px;
+    }
+
+    .trash-item {
+        width: 40px;
+        height: 40px;
+    }
+
+    .trash-info-panel {
+        gap: 10px;
+        padding: 8px 10px;
+    }
+}
