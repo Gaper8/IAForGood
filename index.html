@@ -5,57 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éco-Conscience - Sensibilisation à l'écologie</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">Éco-Conscience</div>
-        <ul class="nav-links">
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#">Actions</a></li>
-            <li><a href="#">Conseils</a></li>
-            <li><a href="#">À propos</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img src="./logo.png" alt="Logo Éco-Conscience" class="logo-img">
+                <div class="logo-text">Éco-Conscience</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-seedling"></i> Actions</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-lightbulb"></i> Éco-gestes</a></li>
+                <li><a href="#jeu" class="nav-link"><i class="fas fa-gamepad"></i> Jeu éducatif</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
     </nav>
     
+    <!-- Hero avec image de fond -->
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>Protégeons notre planète ensemble</h1>
+            <p>Rejoignez notre mouvement pour un avenir plus vert et durable. Chaque geste compte !</p>
+            <div class="cta-buttons">
+                <a href="#jeu" class="cta-button pulse"><i class="fas fa-play"></i> Découvrir le jeu</a>
+                <a href="#" class="cta-button secondary"><i class="fas fa-hands-helping"></i> Nous rejoindre</a>
+            </div>
+        </div>
+    </div>
+    
     <!-- Contenu principal -->
-    <div class="container">
-        <section class="hero">
-            <h1>Agissons ensemble pour notre planète</h1>
-            <p>Découvrez comment de petits gestes quotidiens peuvent faire une grande différence pour l'environnement.</p>
-        </section>
-        
+    <main class="container">
         <section class="content-section">
-            <div class="card">
-                <h2>Pourquoi c'est important ?</h2>
-                <p>La protection de l'environnement est essentielle pour préserver la biodiversité, lutter contre le changement climatique et assurer un avenir durable pour les générations futures.</p>
-                <p>Chaque action compte, même les plus petites, pour réduire notre empreinte écologique.</p>
+            <div class="card slide-in">
+                <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+                <h2>Notre mission</h2>
+                <p>Sensibiliser le plus grand nombre aux enjeux écologiques actuels et proposer des solutions concrètes pour réduire notre impact environnemental au quotidien.</p>
+                <p>Nous croyons en la puissance des petites actions répétées par des millions de personnes.</p>
             </div>
             
-            <div class="card">
-                <h2>Gestes simples</h2>
-                <ul>
-                    <li>Réduire sa consommation d'eau</li>
-                    <li>Privilégier les transports doux</li>
-                    <li>Recycler et composter</li>
-                    <li>Choisir des produits locaux</li>
-                    <li>Éviter le gaspillage alimentaire</li>
+            <div class="card slide-in">
+                <div class="card-icon"><i class="fas fa-hands"></i></div>
+                <h2>Gestes quotidiens</h2>
+                <ul class="styled-list">
+                    <li><i class="fas fa-check-circle"></i> Remplacer les bouteilles en plastique par une gourde</li>
+                    <li><i class="fas fa-check-circle"></i> Privilégier les transports en commun ou le vélo</li>
+                    <li><i class="fas fa-check-circle"></i> Éteindre les appareils en veille</li>
+                    <li><i class="fas fa-check-circle"></i> Choisir des produits sans emballage</li>
+                    <li><i class="fas fa-check-circle"></i> Consommer des fruits et légumes de saison</li>
                 </ul>
             </div>
             
-            <div class="card">
+            <div class="card slide-in">
+                <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
                 <h2>Chiffres clés</h2>
-                <p>En France, chaque personne produit en moyenne 580kg de déchets par an.</p>
-                <p>Le recyclage d'une tonne de papier sauve 17 arbres.</p>
-                <p>Un robinet qui goutte peut gaspiller jusqu'à 120 litres d'eau par jour.</p>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-value">580kg</div>
+                        <div class="stat-label">Déchets/an/personne</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">17</div>
+                        <div class="stat-label">Arbres sauvés</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">120L</div>
+                        <div class="stat-label">Eau gaspillée/jour</div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Section du jeu intégrée -->
-        <section class="game-section">
-            <h2>Découvrez l'eau cachée dans vos objets du quotidien</h2>
+        <section class="game-section" id="jeu">
+            <h2 class="section-title"><i class="fas fa-tint"></i> Découvrez l'eau cachée dans vos objets du quotidien</h2>
             <p class="game-subtitle">Un jeu interactif pour comprendre notre empreinte hydrique</p>
             
             <div class="game-container">
@@ -76,21 +103,72 @@
                     <p>Commencez à faire glisser les objets vers leur empreinte hydrique correspondante !</p>
                 </div>
 
-                <button class="reset-btn" id="resetBtn">Recommencer</button>
+                <button class="reset-btn shine" id="resetBtn"><i class="fas fa-redo"></i> Recommencer</button>
             </div>
         </section>
-    </div>
+    </main>
     
     <!-- Footer -->
-    <footer>
-        <ul class="footer-links">
-            <li><a href="#">Mentions légales</a></li>
-            <li><a href="#">Politique de confidentialité</a></li>
-            <li><a href="#">Plan du site</a></li>
-        </ul>
-        <p class="copyright">© 2023 Éco-Conscience - Tous droits réservés</p>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="./logo.png" alt="Logo Éco-Conscience" class="footer-logo">
+                <div class="footer-motto">Agissons aujourd'hui pour demain</div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links-container">
+                <div class="footer-links-group">
+                    <h3 class="footer-title">Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Nos actions</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Éco-gestes</a></li>
+                        <li><a href="#jeu" class="footer-link"><i class="fas fa-chevron-right"></i> Jeu éducatif</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-group">
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Guides pratiques</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Calculatrice carbone</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Événements</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-group">
+                    <h3 class="footer-title">Légal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Mentions légales</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Politique de confidentialité</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Cookies</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Conditions d'utilisation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-newsletter">
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i> S'abonner</button>
+                </form>
+            </div>
+            <div class="copyright">
+                © 2023 Éco-Conscience - Tous droits réservés | Fait avec <i class="fas fa-heart"></i> pour la planète
+            </div>
+        </div>
     </footer>
 
     <script src="game.js"></script>
+    <script src="animations.js"></script>
 </body>
 </html>
