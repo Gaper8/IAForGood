@@ -127,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function getRandomGameData() {
         // On s'assure d'avoir toujours l'ordinateur
         const computer = allGameData.find(item => item.name.includes("Ordinateur"));
-
+        
         // On prend 4 autres objets aléatoires parmi les 14 restants
         const otherItems = allGameData
             .filter(item => item.id !== computer.id)
             .sort(() => 0.5 - Math.random())
             .slice(0, 4);
-
+        
         return [computer, ...otherItems].sort(() => 0.5 - Math.random());
     }
 
@@ -149,10 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     const resetBtn = document.getElementById('resetBtn');
-    const gameContainer = document.querySelector('.game-container');
-
-    // Assurez-vous que le conteneur du jeu a une position relative
-    gameContainer.style.position = 'relative';
 
     // Initialiser le jeu
     function initGame() {
@@ -161,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateProgress();
         feedbackElement.className = 'feedback';
         feedbackElement.textContent = 'Faites glisser les objets vers leur empreinte hydrique correspondante !';
-
+        
         objectsContainer.innerHTML = '';
         targetsContainer.innerHTML = '';
 
@@ -172,37 +168,32 @@ document.addEventListener('DOMContentLoaded', function() {
             objectElement.draggable = true;
             objectElement.dataset.id = item.id;
             objectElement.dataset.cost = item.waterCost;
-
+            
             objectElement.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
                 <p>${item.name}</p>
             `;
-
+            
             objectElement.addEventListener('dragstart', handleDragStart);
             objectsContainer.appendChild(objectElement);
         });
 
-        // Créer les cibles avec une structure améliorée
+        // Créer les cibles
         const waterCosts = gameData.map(item => item.waterCost).sort(() => Math.random() - 0.5);
-
+        
         waterCosts.forEach(cost => {
             const targetElement = document.createElement('div');
             targetElement.className = 'target-item';
             targetElement.dataset.cost = cost;
-
-            // Nouvelle structure pour les cibles
-            targetElement.innerHTML = `
-                <div class="target-item-content">
-                    <span>${cost.toLocaleString()} litres</span>
-                </div>
-            `;
-
+            
+            targetElement.textContent = `${cost.toLocaleString()} litres`;
+            
             targetElement.addEventListener('dragover', handleDragOver);
             targetElement.addEventListener('dragenter', handleDragEnter);
             targetElement.addEventListener('dragleave', handleDragLeave);
             targetElement.addEventListener('drop', handleDrop);
             targetElement.addEventListener('click', handleTargetClick);
-
+            
             targetsContainer.appendChild(targetElement);
         });
     }
@@ -232,105 +223,54 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleDrop(e) {
         e.preventDefault();
         this.classList.remove('highlight');
-
+        
         const draggedId = e.dataTransfer.getData('text/plain');
         const draggedElement = document.querySelector(`.object-item[data-id="${draggedId}"]`);
-
+        
         if (!draggedElement) return;
-
+        
         const draggedCost = parseInt(draggedElement.dataset.cost);
         const targetCost = parseInt(this.dataset.cost);
-
+        
         if (draggedCost === targetCost) {
-            // Bonne réponse - nouvelle structure pour l'affichage après matching
-            const itemName = draggedElement.querySelector('p').textContent;
-            this.innerHTML = `
-                <div class="target-item-content">
-                    <span>${itemName}</span>
-                    <span>${targetCost.toLocaleString()} litres</span>
-                </div>
-            `;
-
+            // Bonne réponse
+            this.textContent = `${draggedElement.querySelector('p').textContent} - ${targetCost.toLocaleString()} litres`;
             this.style.backgroundColor = '#e8f5e9';
             this.style.border = '2px solid #81c784';
             this.classList.add('matched');
-
+            
             draggedElement.style.visibility = 'hidden';
-
+            
             matchedPairs++;
             updateProgress();
-
-            // Afficher l'explication dans un popup
+            
+            // Afficher l'explication
             const matchedItem = gameData.find(item => item.id.toString() === draggedId);
-            showSuccessPopup(matchedItem.explanation);
-
+            feedbackElement.className = 'feedback success';
+            feedbackElement.innerHTML = `Correct ! ${matchedItem.explanation}`;
+            
             if (matchedPairs === totalPairs) {
-                feedbackElement.innerHTML = '<br><strong>Félicitations ! Vous avez terminé le jeu !</strong>';
+                feedbackElement.innerHTML += '<br><strong>Félicitations ! Vous avez terminé le jeu !</strong>';
             }
         } else {
-            // Mauvaise réponse - afficher le popup
-            showErrorPopup();
+            // Mauvaise réponse
+            feedbackElement.className = 'feedback error';
+            feedbackElement.textContent = 'Oops ! Ce n\'est pas la bonne association. Essayez encore !';
         }
-
+        
         currentDraggedItem.classList.remove('dragging');
         currentDraggedItem = null;
     }
 
     function handleTargetClick() {
         if (this.classList.contains('matched')) {
-            const content = this.querySelector('.target-item-content');
-            if (content) {
-                const itemName = content.querySelector('span:first-child').textContent;
-                const matchedItem = gameData.find(item => item.name === itemName);
-
-                if (matchedItem) {
-                    showSuccessPopup(matchedItem.explanation);
-                }
+            const itemName = this.textContent.split(' - ')[0];
+            const matchedItem = gameData.find(item => item.name === itemName);
+            
+            if (matchedItem) {
+                feedbackElement.className = 'feedback success';
+                feedbackElement.innerHTML = `${matchedItem.explanation}`;
             }
-        }
-    }
-
-    // Nouvelle fonction pour afficher le popup d'erreur
-    function showErrorPopup() {
-        showPopup('Oops ! Ce n\'est pas la bonne association.', 'error-popup');
-    }
-
-    // Nouvelle fonction pour afficher le popup de succès
-    function showSuccessPopup(message) {
-        showPopup(`Correct ! ${message}`, 'success-popup');
-    }
-
-    // Fonction générique pour afficher un popup
-    function showPopup(message, className) {
-        // Supprimer tout popup existant
-        const existingPopup = document.querySelector('.error-popup, .success-popup');
-        if (existingPopup) existingPopup.remove();
-
-        // Créer le popup
-        const popup = document.createElement('div');
-        popup.className = className;
-        popup.innerHTML = `
-            <p>${message}</p>
-            <button>OK</button>
-        `;
-
-        gameContainer.appendChild(popup);
-
-        // Fermer le popup au clic
-        const button = popup.querySelector('button');
-        button.addEventListener('click', () => {
-            popup.style.animation = 'fadeOut 0.3s ease';
-            setTimeout(() => popup.remove(), 300);
-        });
-
-        // Fermer automatiquement après 3 secondes pour les erreurs
-        if (className === 'error-popup') {
-            setTimeout(() => {
-                if (popup.parentNode) {
-                    popup.style.animation = 'fadeOut 0.3s ease';
-                    setTimeout(() => popup.remove(), 300);
-                }
-            }, 2000);
         }
     }
 
@@ -348,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 });
 
-    // Deuxième jeu - Tri sélectif
+// Deuxième jeu - Tri sélectif (version avec objets apparaissant un par un)
 document.addEventListener('DOMContentLoaded', function() {
     // Données du jeu de tri
     const sortingGameData = {
@@ -434,10 +374,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // Variables du jeu
+    // Variables du jeu modifiées
     let matchedItems = 0;
-    let totalItems = sortingGameData.wasteItems.length;
+    let currentItemIndex = 0;
     let currentDraggedWaste = null;
+    let totalItems = sortingGameData.wasteItems.length;
 
     // Éléments DOM
     const binsContainer = document.getElementById('binsContainer');
@@ -450,9 +391,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialiser le jeu de tri
     function initSortingGame() {
         matchedItems = 0;
+        currentItemIndex = 0;
         updateSortingProgress();
         sortingFeedback.className = 'feedback';
-        sortingFeedback.textContent = 'Faites glisser chaque déchet vers la bonne poubelle de tri !';
+        sortingFeedback.textContent = 'Prêt à commencer le tri !';
         
         binsContainer.innerHTML = '';
         wasteItemsContainer.innerHTML = '';
@@ -477,10 +419,17 @@ document.addEventListener('DOMContentLoaded', function() {
             binsContainer.appendChild(binElement);
         });
 
-        // Créer les déchets (mélangés)
-        const shuffledWaste = [...sortingGameData.wasteItems].sort(() => Math.random() - 0.5);
+        // Afficher le premier déchet
+        showNextWasteItem();
+    }
+
+    // Afficher le déchet suivant
+    function showNextWasteItem() {
+        wasteItemsContainer.innerHTML = ''; // Vider le conteneur
         
-        shuffledWaste.forEach(item => {
+        if (currentItemIndex < sortingGameData.wasteItems.length) {
+            const item = sortingGameData.wasteItems[currentItemIndex];
+            
             const wasteElement = document.createElement('div');
             wasteElement.className = 'waste-item';
             wasteElement.draggable = true;
@@ -494,7 +443,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             wasteElement.addEventListener('dragstart', handleWasteDragStart);
             wasteItemsContainer.appendChild(wasteElement);
-        });
+            
+            // Mettre à jour le feedback
+            sortingFeedback.textContent = `Triez : ${item.name}`;
+        } else {
+            sortingFeedback.className = 'feedback success';
+            sortingFeedback.innerHTML = '<strong>Félicitations ! Vous avez trié tous vos déchets correctement !</strong>';
+        }
     }
 
     // Gestionnaires d'événements pour le jeu de tri
@@ -532,20 +487,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const binAccepts = this.dataset.accepts.split(',');
         
         if (binAccepts.includes(wasteType)) {
+            // Bonne réponse
             this.innerHTML += `<div class="dropped-item">${draggedElement.querySelector('p').textContent}</div>`;
             draggedElement.style.visibility = 'hidden';
             draggedElement.classList.add('matched');
             
             matchedItems++;
+            currentItemIndex++;
             updateSortingProgress();
             
             sortingFeedback.className = 'feedback success';
             sortingFeedback.textContent = 'Correct ! Ce déchet va bien dans cette poubelle.';
             
-            if (matchedItems === totalItems) {
-                sortingFeedback.innerHTML += '<br><strong>Félicitations ! Vous avez trié tous vos déchets correctement !</strong>';
-            }
+            // Afficher le déchet suivant après un court délai
+            setTimeout(() => {
+                showNextWasteItem();
+            }, 1000);
         } else {
+            // Mauvaise réponse
             sortingFeedback.className = 'feedback error';
             sortingFeedback.textContent = 'Oops ! Ce déchet ne va pas dans cette poubelle. Essayez encore !';
         }
