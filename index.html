@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éco-Conscience - Sensibilisation à l'écologie</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
@@ -51,6 +52,33 @@
                 <p>Un robinet qui goutte peut gaspiller jusqu'à 120 litres d'eau par jour.</p>
             </div>
         </section>
+
+        <!-- Section du jeu intégrée -->
+        <section class="game-section">
+            <h2>Découvrez l'eau cachée dans vos objets du quotidien</h2>
+            <p class="game-subtitle">Un jeu interactif pour comprendre notre empreinte hydrique</p>
+            
+            <div class="game-container">
+                <div class="instructions">
+                    <p>Faites glisser chaque objet vers son coût en eau estimé. Apprenez ainsi l'impact hydrique de votre consommation !</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <span id="progressText">0/5</span>
+                    </div>
+                </div>
+
+                <div class="game-area">
+                    <div class="objects-container" id="objectsContainer"></div>
+                    <div class="targets-container" id="targetsContainer"></div>
+                </div>
+
+                <div class="feedback" id="feedback">
+                    <p>Commencez à faire glisser les objets vers leur empreinte hydrique correspondante !</p>
+                </div>
+
+                <button class="reset-btn" id="resetBtn">Recommencer</button>
+            </div>
+        </section>
     </div>
     
     <!-- Footer -->
@@ -62,5 +90,7 @@
         </ul>
         <p class="copyright">© 2023 Éco-Conscience - Tous droits réservés</p>
     </footer>
+
+    <script src="game.js"></script>
 </body>
 </html>

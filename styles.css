@@ -1,3 +1,166 @@
+/* Ajoutez ces styles à la fin de votre fichier CSS existant */
+
+/* Section du jeu */
+.game-section {
+    background-color: #e8f5e9;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.game-section h2 {
+    color: #2e8b57;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.game-subtitle {
+    text-align: center;
+    color: #4a6b57;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+/* Styles du jeu */
+.game-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.instructions {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin: 1rem 0;
+    height: 20px;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    background-color: #2e8b57;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-container span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.game-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.objects-container, .targets-container {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.object-item, .target-item {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    cursor: move;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.object-item {
+    background-color: #f5fef5;
+    border: 2px dashed #2e8b57;
+    color: #333;
+}
+
+.object-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.target-item {
+    background-color: #e3f2fd;
+    border: 2px dashed #64b5f6;
+}
+
+.object-item.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+.target-item.highlight {
+    background-color: #fff9c4;
+    border-color: #ffc107;
+}
+
+.feedback {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.feedback.success {
+    background-color: #e8f5e9;
+    color: #2e8b57;
+}
+
+.feedback.error {
+    background-color: #ffebee;
+    color: #f44336;
+}
+
+.reset-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 0.8rem 1.5rem;
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reset-btn:hover {
+    background-color: #3da56a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .game-area {
+        flex-direction: column;
+    }
+    
+    .objects-container, .targets-container {
+        min-width: 100%;
+    }
+}
+
 /* Styles généraux */
 * {
     margin: 0;
