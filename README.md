@@ -38,7 +38,7 @@ IAFORGOOD/
 🚀 Lancer le projet en local
 Clone le repo :
 
-git clone https://github.com/ton-user/eco-conscience.git
+git clone avec le lien que vous trouverez sur ce repo : https://github.com/Gaper8/IAForGood
 
 Ouvre le projet dans ton navigateur :
 
